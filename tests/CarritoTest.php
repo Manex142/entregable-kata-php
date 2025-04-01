@@ -56,4 +56,16 @@ class CarritoTest extends TestCase
 
         $this->assertEquals('', $result);
     }
+
+    /**
+     * @test
+     */
+    public function eliminatingANonExistantProductReturnsWarning()
+    {
+        $carrito = new Carrito();
+
+        $result = $carrito->addProduct('eliminar pan 2');
+
+        $this->assertEquals('El producto seleccionado no existe', $result);
+    }
 }
