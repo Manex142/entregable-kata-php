@@ -11,16 +11,15 @@ class Carrito
     {
         $newOrder = explode(' ', $newOrder);
         $order = $newOrder[0];
-        $productName = $newOrder[1];
-        if (count($newOrder) === 3) {
-            $quantity = (int)$newOrder[2];
-        }else {
-            $quantity = 1;
-        }
-        $newProduct = $productName . ' x' . $quantity;
-        $productsInList = $this->getProductsInList();
         if ($order === 'añadir') {
-
+            $productName = $newOrder[1];
+            if (count($newOrder) === 3) {
+                $quantity = (int)$newOrder[2];
+            }else {
+                $quantity = 1;
+            }
+            $newProduct = $productName . ' x' . $quantity;
+            $productsInList = $this->getProductsInList();
             if( in_array($productName, $productsInList) ) {
                 $key = array_search($productName, $this->productList);
                 $quantity = (int)explode(' ', $this->productList[$key])[1][1] + $quantity;
@@ -30,7 +29,14 @@ class Carrito
             $this->productList[] = $newProduct;
         }
         if ($order === 'eliminar') {
-
+            $productName = $newOrder[1];
+            if (count($newOrder) === 3) {
+                $quantity = (int)$newOrder[2];
+            }else {
+                $quantity = 1;
+            }
+            $newProduct = $productName . ' x' . $quantity;
+            $productsInList = $this->getProductsInList();
             if( !in_array($productName, $productsInList) ) {
                 return 'El producto seleccionado no existe';
             }
@@ -43,6 +49,9 @@ class Carrito
             } else {
                 unset($this->productList[$key]);
             }
+        }
+        if ($order === 'vaciar') {
+            $this->productList = [];
         }
         return implode(', ', $this->productList);
     }

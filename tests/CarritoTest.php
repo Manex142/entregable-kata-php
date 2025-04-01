@@ -68,4 +68,18 @@ class CarritoTest extends TestCase
 
         $this->assertEquals('El producto seleccionado no existe', $result);
     }
+
+    /**
+     * @test
+     */
+    public function emptyOrderReturnsEmptyList()
+    {
+        $carrito = new Carrito();
+
+        $result = $carrito->addProduct('añadir pan 2');
+        $result = $carrito->addProduct('añadir leche 2');
+        $result = $carrito->addProduct('vaciar');
+
+        $this->assertEquals('', $result);
+    }
 }
