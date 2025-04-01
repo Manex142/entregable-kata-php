@@ -16,7 +16,7 @@ class Carrito
             $quantity = $this->getQuantity($newOrder);
             $newProduct = $productName . ' x' . $quantity;
             $productsInList = $this->getProductsInList();
-            if( in_array($productName, $productsInList) ) {
+            if($this->productExists($productName, $productsInList)) {
                 $key = array_search($productName, $this->productList);
                 $quantity = (int)explode(' ', $this->productList[$key])[1][1] + $quantity;
                 $newProduct = explode(' ', $this->productList[$key])[0] . ' x' . $quantity;
@@ -28,7 +28,7 @@ class Carrito
             $productName = $newOrder[1];
             $quantity = $this->getQuantity($newOrder);
             $productsInList = $this->getProductsInList();
-            if( !in_array($productName, $productsInList) ) {
+            if(!$this->productExists($productName, $productsInList)) {
                 return 'El producto seleccionado no existe';
             }
             $this->removeProduct($productName, $quantity);
@@ -69,5 +69,10 @@ class Carrito
         } else {
             unset($this->productList[$key]);
         }
+    }
+
+    private function productExists(string $productName, array $productsInList): bool
+    {
+        return in_array($productName, $productsInList);
     }
 }
