@@ -18,6 +18,7 @@ class CarritoTest extends TestCase
 
         $this->assertEquals('pan x1', $result);
     }
+
     /**
      * @test
      */
@@ -28,5 +29,18 @@ class CarritoTest extends TestCase
         $result = $carrito->addProduct('añadir pan 2');
 
         $this->assertEquals('pan x2', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function addingAnExistantProductReturnsListWithUpdatedAmount()
+    {
+        $carrito = new Carrito();
+
+        $carrito->addProduct('añadir pan 2');
+        $result = $carrito->addProduct('añadir pan 2');
+
+        $this->assertEquals('pan x4', $result);
     }
 }
