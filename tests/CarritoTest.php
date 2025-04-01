@@ -43,4 +43,17 @@ class CarritoTest extends TestCase
 
         $this->assertEquals('pan x4', $result);
     }
+
+    /**
+     * @test
+     */
+    public function eliminatingAnExistantProductReturnsUpdatedList()
+    {
+        $carrito = new Carrito();
+
+        $carrito->addProduct('añadir pan 2');
+        $result = $carrito->addProduct('eliminar pan 2');
+
+        $this->assertEquals('', $result);
+    }
 }
