@@ -18,4 +18,15 @@ class CarritoTest extends TestCase
 
         $this->assertEquals('pan x1', $result);
     }
+    /**
+     * @test
+     */
+    public function addingAProductNTimesReturnsUpdatedList()
+    {
+        $carrito = new Carrito();
+
+        $result = $carrito->addProduct('añadir pan 2');
+
+        $this->assertEquals('pan x2', $result);
+    }
 }
