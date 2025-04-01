@@ -11,12 +11,14 @@ class Carrito
     {
         $newOrder = explode(' ', $newOrder);
         $order = $newOrder[0];
-        if ($order === 'añadir') {
+        if ($order === 'añadir')
+        {
             $productName = $newOrder[1];
             $quantity = $this->getQuantity($newOrder);
             $newProduct = $productName . ' x' . $quantity;
             $productsInList = $this->getProductsInList();
-            if($this->productExists($productName, $productsInList)) {
+            if($this->productExists($productName, $productsInList))
+            {
                 $key = array_search($productName, $this->productList);
                 $quantity = (int)explode(' ', $this->productList[$key])[1][1] + $quantity;
                 $newProduct = explode(' ', $this->productList[$key])[0] . ' x' . $quantity;
@@ -24,7 +26,8 @@ class Carrito
             }
             $this->productList[] = $newProduct;
         }
-        if ($order === 'eliminar') {
+        if ($order === 'eliminar')
+        {
             $productName = $newOrder[1];
             $quantity = $this->getQuantity($newOrder);
             $productsInList = $this->getProductsInList();
@@ -33,7 +36,8 @@ class Carrito
             }
             $this->removeProduct($productName, $quantity);
         }
-        if ($order === 'vaciar') {
+        if ($order === 'vaciar')
+        {
             $this->productList = [];
         }
         return implode(', ', $this->productList);
@@ -42,7 +46,8 @@ class Carrito
     private function getProductsInList(): array
     {
         $productsInList = [];
-        for ($i = 0; $i < count($this->productList); $i++) {
+        for ($i = 0; $i < count($this->productList); $i++)
+        {
             $productsInList[] = explode(' ', $this->productList[$i])[0];
         }
         return $productsInList;
@@ -50,9 +55,11 @@ class Carrito
 
     private function getQuantity(array $newOrder): int
     {
-        if (count($newOrder) === 3) {
+        if (count($newOrder) === 3)
+        {
             $quantity = (int)$newOrder[2];
-        } else {
+        } else
+        {
             $quantity = 1;
         }
         return $quantity;
@@ -62,11 +69,13 @@ class Carrito
     {
         $key = array_search($productName, $this->productList);
         $quantity = (int)explode(' ', $this->productList[$key])[1][1] - $quantity;
-        if ($quantity > 0) {
+        if ($quantity > 0)
+        {
             $newProduct = explode(' ', $this->productList[$key])[0] . ' x' . $quantity;
             unset($this->productList[$key]);
             $this->productList[] = $newProduct;
-        } else {
+        } else
+        {
             unset($this->productList[$key]);
         }
     }

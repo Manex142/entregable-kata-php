@@ -76,8 +76,8 @@ class CarritoTest extends TestCase
     {
         $carrito = new Carrito();
 
-        $result = $carrito->addProduct('añadir pan 2');
-        $result = $carrito->addProduct('añadir leche 2');
+        $carrito->addProduct('añadir pan 2');
+        $carrito->addProduct('añadir leche 2');
         $result = $carrito->addProduct('vaciar');
 
         $this->assertEquals('', $result);
