@@ -27,20 +27,11 @@ class Carrito
         if ($order === 'eliminar') {
             $productName = $newOrder[1];
             $quantity = $this->getQuantity($newOrder);
-            $newProduct = $productName . ' x' . $quantity;
             $productsInList = $this->getProductsInList();
             if( !in_array($productName, $productsInList) ) {
                 return 'El producto seleccionado no existe';
             }
-            $key = array_search($productName, $this->productList);
-            $quantity = (int)explode(' ', $this->productList[$key])[1][1] - $quantity;
-            if ($quantity > 0) {
-                $newProduct = explode(' ', $this->productList[$key])[0] . ' x' . $quantity;
-                unset($this->productList[$key]);
-                $this->productList[] = $newProduct;
-            } else {
-                unset($this->productList[$key]);
-            }
+            $this->removeProduct($productName, $quantity);
         }
         if ($order === 'vaciar') {
             $this->productList = [];
@@ -65,5 +56,18 @@ class Carrito
             $quantity = 1;
         }
         return $quantity;
+    }
+
+    private function removeProduct(string $productName, int $quantity): void
+    {
+        $key = array_search($productName, $this->productList);
+        $quantity = (int)explode(' ', $this->productList[$key])[1][1] - $quantity;
+        if ($quantity > 0) {
+            $newProduct = explode(' ', $this->productList[$key])[0] . ' x' . $quantity;
+            unset($this->productList[$key]);
+            $this->productList[] = $newProduct;
+        } else {
+            unset($this->productList[$key]);
+        }
     }
 }
