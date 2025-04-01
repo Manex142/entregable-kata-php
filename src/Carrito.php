@@ -13,11 +13,7 @@ class Carrito
         $order = $newOrder[0];
         if ($order === 'añadir') {
             $productName = $newOrder[1];
-            if (count($newOrder) === 3) {
-                $quantity = (int)$newOrder[2];
-            }else {
-                $quantity = 1;
-            }
+            $quantity = $this->getQuantity($newOrder);
             $newProduct = $productName . ' x' . $quantity;
             $productsInList = $this->getProductsInList();
             if( in_array($productName, $productsInList) ) {
@@ -30,11 +26,7 @@ class Carrito
         }
         if ($order === 'eliminar') {
             $productName = $newOrder[1];
-            if (count($newOrder) === 3) {
-                $quantity = (int)$newOrder[2];
-            }else {
-                $quantity = 1;
-            }
+            $quantity = $this->getQuantity($newOrder);
             $newProduct = $productName . ' x' . $quantity;
             $productsInList = $this->getProductsInList();
             if( !in_array($productName, $productsInList) ) {
@@ -63,5 +55,15 @@ class Carrito
             $productsInList[] = explode(' ', $this->productList[$i])[0];
         }
         return $productsInList;
+    }
+
+    private function getQuantity(array $newOrder): int
+    {
+        if (count($newOrder) === 3) {
+            $quantity = (int)$newOrder[2];
+        } else {
+            $quantity = 1;
+        }
+        return $quantity;
     }
 }
